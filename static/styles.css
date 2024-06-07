@@ -1,3 +1,61 @@
 body {
-  background-color: beige;
+  background-color: #f2f2f2;
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  max-width: 80rem;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: #ccd5ae;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+  color: #d4a373;
+}
+.content table {
+  width: 80rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+}
+.content table th, .content table td {
+  padding: 1rem;
+  border: 0.1rem solid #333;
+}
+.content table th {
+  background-color: white;
+  color: #333;
+}
+.content table a {
+  display: inline-block;
+  padding: 0.2rem 1.6rem;
+  margin: 0.2rem;
+  border-radius: 2rem;
+  background-color: #d4a373;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.content table a:hover {
+  background-color: #faedcd;
+  color: #333;
+}
+.content input {
+  padding: 1rem;
+  margin: 0.5rem;
+  border: solid 0.1rem;
+  border-radius: 0.5rem;
+}
+.content #btn_add {
+  background-color: #faedcd;
+  color: #333;
+  cursor: pointer;
+}
+.content #btn_add:hover {
+  background-color: #ccd5ae;
 }/*# sourceMappingURL=styles.css.map */

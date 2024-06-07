@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 # configuring the extension for the flask SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False #  This is called as creating a flag for database, when a user goeas to your webpage after deployment it wont be using a preexisting db it will create a new one
 db = SQLAlchemy(app) #we added our app in our SQLAlchemy
 
 #we nned to create class model
@@ -22,6 +23,11 @@ class MyTask(db.Model):
     # using dunder method of a string representation
     def __repr__(self) -> str:
         return f"Task {self.id}"
+    
+# we are going to use a contect manager below
+with app.app_context():
+    db.create_all() 
+
 
 
 
@@ -76,11 +82,15 @@ def update(id:int):
         return render_template('edit.html', task = task )
 
 
-# in order to give our flask app a final test: 
-# Thebelow is the runner and debugger
-if __name__ in "__main__":
-    # we are going to use a contect manager below
-    with app.app_context():
-        db.create_all() 
-    app.run(debug=True) # we have kept the debugger always on so that flask will keep updating itself
+#The below code is used if you want to run the code inn local server without deploying
+# # in order to give our flask app a final test: 
+# # Thebelow is the runner and debugger
+# if __name__ in "__main__":
+#     # we are going to use a contect manager below
+#     with app.app_context():
+#         db.create_all() 
+#     app.run(debug=True) # we have kept the debugger always on so that flask will keep updating itself
 
+#Deploying the code
+if __name__ == "__main__":
+    app.run(debug=True) # we have kept the debugger always on so that flask will keep updating itself
