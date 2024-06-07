@@ -1,14 +1,29 @@
-<!-- Every route of our app will be in the Template file -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask CRUD App</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}"/>
-</head>
-<body>
-    <h1>Welcome to my app</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum temporibus, ea rem ad maiores cupiditate. Laborum laudantium vel magnam modi necessitatibus at sed repellat, ipsa quia culpa officiis debitis vitae?</p>
-</body>
-</html>
+{% extends 'base.html' %} <!-- this line of code is for jenga to tell them to add all the below code as extention in the main body of base.html -->
+<!-- also extends means inherits to the base.html -->
+
+{% block head %}
+<title>Flask CRUD Homepage</title> <!--So this line of code will replace the title of the base.html code with itself-->
+{% endblock %}
+
+{% block body %} <!--any code that wwill be added in this section will be applied to the base.html body-->
+<div class="content">
+    <h2>Welcome to my App</h2>
+    <h1>Task Manager</h1>
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td>Data</td>
+            <td>More</td>
+        </tr>
+    </table>
+    <form action="">
+        <input type="text" name="Content" id="Content">
+        <input type="Submit" value="Add Task" id="btn_add">
+    </form>
+</div>
+{% endblock %}

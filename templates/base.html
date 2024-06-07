@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}"/>
+    <title>Document</title>
+    <!--Below and also in the body we are going to add this jinja templating feature which is known as parent child inheritance -->
+    <!--inshort this .html file is the main file and al the other .html files will consist only the body or head code inside the parenthisis which will repace the code in the base.html itself just like express.js templating-->
+    {% block head %} {% endblock %}   
+</head>
+<body>
+    {% block body %}{% endblock %}
+</body>
+</html>
