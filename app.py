@@ -1,5 +1,5 @@
 # Import flask
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, request
 from flask_scss import Scss
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -24,13 +24,60 @@ class MyTask(db.Model):
         return f"Task {self.id}"
 
 
+
+
+
+# Below os the main homepage route which also plays the role of adding and reading the data
 # In order to create a route we need to create a flask decorator and create a route
-@app.route("/") #since its the homepage we have just kept "/" in the bracket for now
+@app.route("/",methods = ["POST","GET"]) #since its the homepage we have just kept "/" in the bracket for now
 # Index is going to be our homepage so we are create a route for the homepage below
 def index():
-    return render_template("index.html")#as the routing file is by defaault named templates this will shouw us the index.html as our home page
+    #add task function
+    if request.method == "POST":
+        current_task = request.form['content']
+        new_task = MyTask(content = current_task)
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect("/")
+        except Exception as e:
+            print(f"Error:{e}")
+            return f"error:{e}"
+    #See current added Task
+    else:
+        tasks = MyTask.query.order_by(MyTask.created).all()
+        return render_template("index.html", tasks = tasks)#as the routing file is by defaault named templates this will shouw us the index.html as our home page
+
+
+# the below route plays the role of deleting the data form the added tasks
+@app.route("/delete/<int:id>")
+def delete(id:int):
+    delete_task = MyTask.query.get_or_404(id)
+    try:
+        db.session.delete(delete_task)
+        db.session.commit()
+        return redirect("/")
+    except Exception as e:
+        return f"Error:{e}"
+
+
+# and final the below route is created to update/edit the existing to-do tasks
+@app.route("/update/<int:id>", methods = ["GET","POST"])
+def update(id:int):
+    task = MyTask.query.get_or_404(id)
+    if request.method == "POST":
+        task.content = request.form["content"]
+        try:
+            db.session.commit()
+            return redirect("/")
+        except Exception as e:
+            return f"Error: {e}"
+    else:
+        return render_template('edit.html', task = task )
+
 
 # in order to give our flask app a final test: 
+# Thebelow is the runner and debugger
 if __name__ in "__main__":
     # we are going to use a contect manager below
     with app.app_context():

@@ -9,21 +9,33 @@
 <div class="content">
     <h2>Welcome to my App</h2>
     <h1>Task Manager</h1>
+
+    {% if tasks | length < 1 %} <!--this jinga code says if in tasks the length of data in it is less than 1 show the below html tag-->
+    <h3>There is no tasks.. Create one here</h3>
+    {% else %} <!--this jinga code is the else part of the above if code where if the above statement does not satisfy add the below html tags in the page-->
     <table>
         <tr>
             <th>Task</th>
             <th>Added</th>
             <th>Actions</th>
         </tr>
+        {% for task in tasks %} <!--This for loop will take the data in loop meaning one by one and add the data in the table rows below which will create a list of table rows to show-->
         <tr>
-            <td>Content</td>
-            <td>Data</td>
-            <td>More</td>
+            <td>{{task.content}}</td>
+            <td>{{task.created.strftime("%Y-%m-%d")}}</td>
+            <td>
+                <!--this and the ones below are the links to a different route which have theour own specific actions-->
+                <a href="/delete/{{task.id}}">Delete</a>
+                <br>
+                <a href="/update/{{task.id}}">Edit</a>
+            </td>
         </tr>
+        {% endfor %} <!--This is to end the for loop we started-->
     </table>
-    <form action="">
-        <input type="text" name="Content" id="Content">
-        <input type="Submit" value="Add Task" id="btn_add">
+    {% endif %}<!--This is to end the if statement we started-->
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Add Task" id="btn_add">
     </form>
 </div>
 {% endblock %}
