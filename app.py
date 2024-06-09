@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # configuring the extension for the flask SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False #  This is called as creating a flag for database, when a user goeas to your webpage after deployment it wont be using a preexisting db it will create a new one
+app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False # This is called as creating a flag for database, when a user goeas to your webpage after deployment it wont be using a preexisting db it will create a new one
 db = SQLAlchemy(app) #we added our app in our SQLAlchemy
 
 #we nned to create class model
@@ -71,7 +71,7 @@ def delete(id:int):
 @app.route("/update/<int:id>", methods = ["GET","POST"])
 def update(id:int):
     task = MyTask.query.get_or_404(id)
-    if request.method == "POST":
+    if request.method == "POST": 
         task.content = request.form["content"]
         try:
             db.session.commit()
@@ -80,6 +80,10 @@ def update(id:int):
             return f"Error: {e}"
     else:
         return render_template('edit.html', task = task )
+
+
+
+
 
 
 #The below code is used if you want to run the code inn local server without deploying
